@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "None",
+        "moduleResolution": "Node",
+        "target": "ES5",
+        "jsx": "preserve",
+        "strictFunctionTypes": true
+    },
+    "exclude": ["node_modules", "**/node_modules/*", "dist", "/src/static/platform/js/lib"]
+}
