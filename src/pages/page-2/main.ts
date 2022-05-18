@@ -1,4 +1,4 @@
-import { WordCount } from "./components/WordCount";
+import { WordCount } from "../../components/WordCount";
 
 // Define the new element
 customElements.define("word-count", WordCount, { extends: "p" });
