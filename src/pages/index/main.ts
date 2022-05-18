@@ -11,7 +11,7 @@ function getPages() {
     const dirName = key.match(/\/src\/pages\/([\w-]+)\/\w+\.ts/)?.[1]; // 匹配出页面名称
     let pageName = "index";
     // index 此时还未导出
-    if (dirName !== "index") {
+    if (dirName !== "index" && pages[key].pageInfo) {
       pageName = pages[key].pageInfo.title;
       temp += `<li><a href="/${dirName}">${pageName}</a></li>`;
     }
