@@ -10,6 +10,7 @@ import {
   BufferGeometry,
   Line,
 } from "three";
+import "@/style/index.scss";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 // 场景
@@ -39,9 +40,12 @@ function createCube() {
 function createLine() {
   const material = new LineBasicMaterial({ color: 0x00ff00 }); // 定义纹理材质
   const points = [];
-  points.push(new Vector3(-10, 0, 0));
-  points.push(new Vector3(0, 10, 0));
-  points.push(new Vector3(10, 0, 0));
+  // 1个单位是多少像素？
+  points.push(new Vector3(-5, 0, 0));
+  points.push(new Vector3(0, 3, 0));
+  points.push(new Vector3(5, 0, 0));
+  points.push(new Vector3(0, -3, 0));
+  points.push(new Vector3(-5, 0, 0));
 
   const geometry = new BufferGeometry().setFromPoints(points); // 定义几何体
   const line = new Line(geometry, material);

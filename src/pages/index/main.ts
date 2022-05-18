@@ -1,3 +1,4 @@
+import "@/style/index.scss";
 const app = document.querySelector<HTMLDivElement>("#app");
 
 app && (app.innerHTML = getPages());
