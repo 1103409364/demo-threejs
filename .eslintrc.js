@@ -15,7 +15,6 @@ module.exports = {
   extends: [
     // "plugin:react/recommended", // 使用eslint-plugin-react的推荐规则
     "plugin:@typescript-eslint/recommended", // 使用@typescript-eslint/eslint-plugin的推荐规则
-    "prettier/@typescript-eslint", // 使用eslint-config-prettier来禁用@typescript-eslint/eslint-plugin中与prettier冲突的ESLint规则
     // 启用eslint-plugin-prettier和eslint-config-prettier。这会将prettier错误作为ESLint错误来展示。确保这个配置放到数组的最后。
     "plugin:prettier/recommended",
   ],
