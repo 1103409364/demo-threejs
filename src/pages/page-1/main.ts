@@ -20,7 +20,7 @@ const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 // 创建渲染器
 const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-app && app.appendChild(renderer.domElement);
+app?.appendChild(renderer.domElement);
 
 const cube = createCube();
 const line = createLine();

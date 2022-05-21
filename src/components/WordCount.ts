@@ -6,7 +6,7 @@ export class WordCount extends HTMLParagraphElement {
 
     // count words in element's parent element
     const wcParent = this.parentNode;
-
+    // count words in element's text
     function countWords(node: ParentNode | null) {
       const text = node?.textContent || "";
       return text
@@ -31,7 +31,7 @@ export class WordCount extends HTMLParagraphElement {
     setInterval(function () {
       const count = `Words: ${countWords(wcParent)}`;
       text.textContent = count;
-    }, 200);
+    }, 500);
   }
 }
 
