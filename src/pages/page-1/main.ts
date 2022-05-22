@@ -12,8 +12,11 @@ import {
   Line,
   Color,
 } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Stats from "three/examples/jsm/libs/stats.module";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+// import Stats from "three/examples/jsm/libs/stats.module";
+import { OrbitControls } from "@three-ts/orbit-controls";
+import { Stats } from "stats.ts";
+import { GUI } from "lil-gui"; // dat.GUI 的替代方案
 
 const app = document.querySelector<HTMLDivElement>("#app");
 // 场景
@@ -28,14 +31,26 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.addEventListener("change", render);
+// controls.addEventListener("change", render);
 
 const cube = createCube();
 const line = createLine();
 scene.add(cube);
 scene.add(line);
 
-const stats = Stats();
+// 调试控件
+const gui = new GUI();
+const cubeFolder = gui.addFolder("Cube"); // 分类
+cubeFolder.add(cube.rotation, "x", 0, Math.PI * 2, 0.01);
+cubeFolder.add(cube.rotation, "y", 0, Math.PI * 2, 0.01);
+cubeFolder.add(cube.rotation, "z", 0, Math.PI * 2, 0.01);
+// cubeFolder.close(); // 默认展开
+const cameraFolder = gui.addFolder("Camera");
+cameraFolder.add(camera.position, "x", -10, 10, 0.01);
+cameraFolder.add(camera.position, "y", -10, 10, 0.01);
+cameraFolder.add(camera.position, "z", -10, 10, 0.01);
+
+const stats = new Stats();
 document.body.appendChild(stats.dom);
 
 window.addEventListener("resize", onWindowResize, false);
@@ -75,14 +90,14 @@ function render() {
 }
 render();
 // 循环渲染
-// function animate() {
-//   requestAnimationFrame(animate);
-//   cube.rotation.x += 0.01;
-//   cube.rotation.y += 0.01;
-//   controls.update();
-//   stats.update();
-//   render();
-// }
-// animate();
+function animate() {
+  requestAnimationFrame(animate);
+  // cube.rotation.x += 0.01;
+  // cube.rotation.y += 0.01;
+  controls.update();
+  // stats.update();
+  render();
+}
+animate();
 
 export const pageInfo = { title: "创建一个场景（Creating a scene）" };

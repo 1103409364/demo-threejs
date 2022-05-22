@@ -10,6 +10,7 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix"
   },
   "dependencies": {
+    "@three-ts/orbit-controls": "^1.4.7",
     "three": "^0.140.2"
   },
   "devDependencies": {
@@ -21,8 +22,10 @@
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "lil-gui": "^0.16.1",
     "prettier": "^2.6.2",
     "sass": "^1.51.0",
+    "stats.ts": "^1.1.0",
     "stylelint": "^14.5.3",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recess-order": "^3.0.0",
