@@ -33,6 +33,7 @@ renderer4?.setSize(200, 200);
 // app?.appendChild(renderer1.domElement);
 
 const controls1 = c1 && new OrbitControls(camera1, c1);
+controls1?.addEventListener("change", render1);
 
 const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshBasicMaterial({
@@ -63,11 +64,13 @@ function animate() {
 }
 
 function render() {
-  renderer1?.render(scene, camera1);
   renderer2?.render(scene, camera2);
   renderer3?.render(scene, camera3);
   renderer4?.render(scene, camera4);
 }
+function render1() {
+  renderer1?.render(scene, camera1);
+}
 animate();
-
-export const pageInfo = { title: "TypeScript-Boilerplate" };
+render1();
+export const pageInfo = { title: "Scene Camera Renderer" };
