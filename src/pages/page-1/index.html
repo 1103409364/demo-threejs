@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>creating-a-scene</title>
+    <style>
+      div#gui {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>creating-a-scene</title>
-</head>
-
-<body>
-  <div id="app"></div>
-  <script type="module" src="/src/pages/page-1/main.ts"></script>
-</body>
-
+  <body>
+    <div id="app"></div>
+    <div id="gui"></div>
+    <script type="module" src="/src/pages/page-1/main.ts"></script>
+  </body>
 </html>

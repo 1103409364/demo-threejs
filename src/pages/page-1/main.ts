@@ -38,21 +38,6 @@ const line = createLine();
 scene.add(cube);
 scene.add(line);
 
-// 调试控件
-const gui = new GUI();
-const cubeFolder = gui.addFolder("Cube"); // 分类
-cubeFolder.add(cube.rotation, "x", 0, Math.PI * 2, 0.01);
-cubeFolder.add(cube.rotation, "y", 0, Math.PI * 2, 0.01);
-cubeFolder.add(cube.rotation, "z", 0, Math.PI * 2, 0.01);
-// cubeFolder.close(); // 默认展开
-const cameraFolder = gui.addFolder("Camera");
-cameraFolder.add(camera.position, "x", -10, 10, 0.01);
-cameraFolder.add(camera.position, "y", -10, 10, 0.01);
-cameraFolder.add(camera.position, "z", -10, 10, 0.01);
-
-const stats = new Stats();
-document.body.appendChild(stats.dom);
-
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -83,6 +68,31 @@ function createLine() {
   const line = new Line(geometry, material);
   return line;
 }
+// 状态监控
+function addStats() {
+  const stats = new Stats();
+  app?.appendChild(stats.dom);
+  return stats;
+}
+// 调试控件
+function addGui() {
+  const container = document.querySelector<HTMLDivElement>("#gui");
+  if (!container) return;
+  const gui = new GUI({ container: container });
+  const cubeFolder = gui.addFolder("Cube"); // 分类
+  cubeFolder.add(cube.rotation, "x", 0, Math.PI * 2, 0.01);
+  cubeFolder.add(cube.rotation, "y", 0, Math.PI * 2, 0.01);
+  cubeFolder.add(cube.rotation, "z", 0, Math.PI * 2, 0.01);
+  // cubeFolder.close(); // 默认展开
+  const cameraFolder = gui.addFolder("Camera");
+  cameraFolder.add(camera.position, "x", -10, 10, 0.01);
+  cameraFolder.add(camera.position, "y", -10, 10, 0.01);
+  cameraFolder.add(camera.position, "z", -10, 10, 0.01);
+}
+
+const stats = addStats();
+addGui();
+
 function render() {
   stats.begin();
   renderer.render(scene, camera);
