@@ -1,3 +1,4 @@
+import "@/style/index.scss";
 import {
   Scene,
   PerspectiveCamera,
@@ -9,30 +10,41 @@ import {
   Vector3,
   BufferGeometry,
   Line,
+  Color,
 } from "three";
-import "@/style/index.scss";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 // 场景
 const scene = new Scene();
+scene.background = new Color(0xffffff);
 // 相机 透视相机 近大远小
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 4;
 // 创建渲染器
 const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
 
 const cube = createCube();
 const line = createLine();
 scene.add(cube);
 scene.add(line);
 
-camera.position.z = 5;
+window.addEventListener("resize", onWindowResize, false);
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix(); // 更新摄像机的投影矩阵
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  render();
+}
 
 // 创建一个立方体
 function createCube() {
   const geometry = new BoxGeometry();
-  const material = new MeshBasicMaterial({ color: 0x00ff00 }); // 定义纹理材质
+  const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true }); // 定义纹理材质 wireframe 线框
   const cube = new Mesh(geometry, material);
   return cube;
 }
@@ -41,22 +53,26 @@ function createLine() {
   const material = new LineBasicMaterial({ color: 0x00ff00 }); // 定义纹理材质
   const points = [];
   // 1个单位是多少像素？
-  points.push(new Vector3(-5, 0, 0));
-  points.push(new Vector3(0, 3, 0));
-  points.push(new Vector3(5, 0, 0));
-  points.push(new Vector3(0, -3, 0));
-  points.push(new Vector3(-5, 0, 0));
+  points.push(new Vector3(-2, 0, 0));
+  points.push(new Vector3(0, 2, 0));
+  points.push(new Vector3(2, 0, 0));
+  points.push(new Vector3(0, -2, 0));
+  points.push(new Vector3(-2, 0, 0));
 
   const geometry = new BufferGeometry().setFromPoints(points); // 定义几何体
   const line = new Line(geometry, material);
   return line;
+}
+function render() {
+  renderer.render(scene, camera);
 }
 // 渲染
 function animate() {
   requestAnimationFrame(animate);
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
-  renderer.render(scene, camera);
+  controls.update();
+  render();
 }
 animate();
 
