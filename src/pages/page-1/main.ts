@@ -13,11 +13,12 @@ import {
   Color,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import Stats from "three/examples/jsm/libs/stats.module";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 // 场景
 const scene = new Scene();
-scene.background = new Color(0xffffff);
+scene.background = new Color(0x000000);
 // 相机 透视相机 近大远小
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 4;
@@ -27,11 +28,15 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.addEventListener("change", render);
 
 const cube = createCube();
 const line = createLine();
 scene.add(cube);
 scene.add(line);
+
+const stats = Stats();
+document.body.appendChild(stats.dom);
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
@@ -64,16 +69,20 @@ function createLine() {
   return line;
 }
 function render() {
+  stats.begin();
   renderer.render(scene, camera);
+  stats.end();
 }
-// 渲染
-function animate() {
-  requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-  controls.update();
-  render();
-}
-animate();
+render();
+// 循环渲染
+// function animate() {
+//   requestAnimationFrame(animate);
+//   cube.rotation.x += 0.01;
+//   cube.rotation.y += 0.01;
+//   controls.update();
+//   stats.update();
+//   render();
+// }
+// animate();
 
 export const pageInfo = { title: "创建一个场景（Creating a scene）" };
