@@ -11,6 +11,7 @@ import {
   BufferGeometry,
   Line,
   Color,
+  AxesHelper,
 } from "three";
 // import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import Stats from "three/examples/jsm/libs/stats.module";
@@ -39,6 +40,28 @@ scene.add(cube);
 scene.add(line);
 
 window.addEventListener("resize", onWindowResize, false);
+
+const stats = addStats();
+addGui();
+addAxesHelper();
+// render();
+animate();
+
+function render() {
+  stats.begin();
+  renderer.render(scene, camera);
+  stats.end();
+}
+// 循环渲染
+function animate() {
+  requestAnimationFrame(animate);
+  // cube.rotation.x += 0.01;
+  // cube.rotation.y += 0.01;
+  controls.update();
+  // stats.update();
+  render();
+}
+
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix(); // 更新摄像机的投影矩阵
@@ -80,34 +103,29 @@ function addGui() {
   if (!container) return;
   const gui = new GUI({ container: container });
   const cubeFolder = gui.addFolder("Cube"); // 分类
-  cubeFolder.add(cube.rotation, "x", 0, Math.PI * 2, 0.01);
-  cubeFolder.add(cube.rotation, "y", 0, Math.PI * 2, 0.01);
-  cubeFolder.add(cube.rotation, "z", 0, Math.PI * 2, 0.01);
-  // cubeFolder.close(); // 默认展开
+  const cubeRotationFolder = cubeFolder.addFolder("Rotation");
+  cubeRotationFolder.add(cube.rotation, "x", 0, Math.PI * 2, 0.01);
+  cubeRotationFolder.add(cube.rotation, "y", 0, Math.PI * 2, 0.01);
+  cubeRotationFolder.add(cube.rotation, "z", 0, Math.PI * 2, 0.01);
+  // cubeRotationFolder.close(); // 默认展开
+  const cubePositionFolder = cubeFolder.addFolder("Position");
+  cubePositionFolder.add(cube.position, "x", -5, 5, 0.01);
+  cubePositionFolder.add(cube.position, "y", -5, 5, 0.01);
+  cubePositionFolder.add(cube.position, "z", -5, 5, 0.01);
+  const cubeScaleFolder = cubeFolder.addFolder("Scale");
+  cubeScaleFolder.add(cube.scale, "x", 0, 5, 0.01);
+  cubeScaleFolder.add(cube.scale, "y", 0, 5, 0.01);
+  cubeScaleFolder.add(cube.scale, "z", 0, 5, 0.01);
+
   const cameraFolder = gui.addFolder("Camera");
   cameraFolder.add(camera.position, "x", -10, 10, 0.01);
   cameraFolder.add(camera.position, "y", -10, 10, 0.01);
   cameraFolder.add(camera.position, "z", -10, 10, 0.01);
 }
 
-const stats = addStats();
-addGui();
-
-function render() {
-  stats.begin();
-  renderer.render(scene, camera);
-  stats.end();
+function addAxesHelper() {
+  const axesHelper = new AxesHelper(5);
+  scene.add(axesHelper);
 }
-render();
-// 循环渲染
-function animate() {
-  requestAnimationFrame(animate);
-  // cube.rotation.x += 0.01;
-  // cube.rotation.y += 0.01;
-  controls.update();
-  // stats.update();
-  render();
-}
-animate();
 
 export const pageInfo = { title: "创建一个场景（Creating a scene）" };
