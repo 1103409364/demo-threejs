@@ -50,7 +50,7 @@ scene.add(line);
 window.addEventListener("resize", onWindowResize, false);
 
 const stats = addStats();
-const debug = document.getElementById("debug1") as HTMLDivElement;
+const debug = document.getElementById("debug1");
 
 addGui();
 addAxesHelper();
@@ -65,7 +65,7 @@ function animate() {
   controls.update();
   // stats.update();
   render();
-  debug.innerText = "cube Matrix\n" + cube.matrix.elements.toString().replace(/,/g, "\n");
+  debug && (debug.innerText = "cube Matrix\n" + cube.matrix.elements.toString().replace(/,/g, "\n"));
 }
 function render() {
   stats.begin();
