@@ -10,7 +10,13 @@
         position: absolute;
         right: 0;
         top: 0;
+        max-height: 100%;
+        overflow: auto;
       }
+      div#gui::-webkit-scrollbar{
+        width: 0;//对垂直方向滚动条
+        height: 0;//对水平方向滚动条
+    }
       #debug1 {
         font-family: monospace;
         font-size: larger;
