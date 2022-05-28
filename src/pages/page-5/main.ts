@@ -14,7 +14,7 @@ import {
   FrontSide,
   BackSide,
   DoubleSide,
-  CubeRefractionMapping,
+  // CubeRefractionMapping,
   TextureLoader,
   CubeTextureLoader,
   MultiplyOperation,
