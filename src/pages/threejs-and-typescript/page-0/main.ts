@@ -1,4 +1,4 @@
-import "../../components/WordCount";
+import "@/components/WordCount";
 
 const template = `
 <h1>Word count rating widget</h1>

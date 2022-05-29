@@ -27,7 +27,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { OrbitControls } from "@three-ts/orbit-controls";
 import { Stats } from "stats.ts";
 import { GUI } from "lil-gui"; // dat.GUI 的替代方案
-import { getImg } from "../../utils";
+import { getImg } from "@/utils";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 // 场景
