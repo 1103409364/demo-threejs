@@ -17,7 +17,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import Stats from "three/examples/jsm/libs/stats.module";
 // import { OrbitControls } from "@three-ts/orbit-controls";
 import { Stats } from "stats.ts";
-import { GUI } from "lil-gui"; // dat.GUI 的替代方案
+import { GUI } from "lil-gui";
 import { getImg } from "@/utils";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -39,19 +39,15 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-// controls.addEventListener("change", handleControlChange);
 controls.screenSpacePanning = true; //so that panning up and down doesn't zoom in/out
 //controls.addEventListener('change', render)
 
-const planeGeometry = new PlaneGeometry(3.6, 1.8, 360, 180);
+const planeGeometry = new PlaneGeometry(3.6, 1.8, 1440, 720); // 增加几何体分辨率
 
 const material = new MeshPhongMaterial();
 
 const texture = new TextureLoader().load(getImg("worldColour.5400x2700", "jpg"));
 material.map = texture;
-
-//const specularTexture = new TextureLoader().load(getImg("earthSpecular", "jpg"))
-// material.specularMap = specularTexture
 
 const displacementMap = new TextureLoader().load(getImg("gebco_bathy.5400x2700_8bit", "jpg"));
 material.displacementMap = displacementMap;
@@ -105,8 +101,9 @@ function addGui() {
       DoubleSide: DoubleSide,
     },
   };
-  const materialFolder = gui.addFolder("THREE.Material");
-  materialFolder.add(material, "transparent").onChange(() => (material.needsUpdate = true));
+  const materialFolder = gui.addFolder("Material");
+
+  materialFolder.add(material, "transparent");
   materialFolder.add(material, "opacity", 0, 1, 0.01);
   materialFolder.add(material, "depthTest");
   materialFolder.add(material, "depthWrite");
@@ -171,10 +168,18 @@ function addGui() {
     plane.geometry = newGeometry;
   }
 
+  const textureFolder = gui.addFolder("Texture"); // 修改 uv 坐标
+  textureFolder.add(texture.repeat, "x", 0.1, 1, 0.1);
+  textureFolder.add(texture.repeat, "y", 0.1, 1, 0.1);
+  textureFolder.add(texture.center, "x", 0, 1, 0.001);
+  textureFolder.add(texture.center, "y", 0, 1, 0.001);
+
+  textureFolder.open();
+
   const cameraFolder = gui.addFolder("Camera");
   cameraFolder.add(camera.position, "x", -10, 10, 0.01);
   cameraFolder.add(camera.position, "y", -10, 10, 0.01);
   cameraFolder.add(camera.position, "z", -10, 10, 0.01);
 }
 
-export const pageInfo = { title: "DisplacementMap" };
+export const pageInfo = { title: "Material Repeat and Center" };
