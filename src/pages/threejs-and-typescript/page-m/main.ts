@@ -5,7 +5,6 @@ import {
   WebGLRenderer,
   Mesh,
   AxesHelper,
-  PointLight,
   TextureLoader,
   MeshPhongMaterial,
   MeshBasicMaterial,
@@ -13,6 +12,7 @@ import {
   MeshPhysicalMaterial,
   MeshToonMaterial,
   TorusGeometry,
+  AmbientLight,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import Stats from "three/examples/jsm/libs/stats.module";
@@ -26,7 +26,7 @@ const app = document.querySelector<HTMLDivElement>("#app");
 const scene = new Scene();
 scene.add(new AxesHelper(5));
 
-const light = new PointLight(0xffffff, 2);
+const light = new AmbientLight();
 light.position.set(10, 10, 10);
 scene.add(light);
 
@@ -166,4 +166,4 @@ function addGui() {
   cameraFolder.add(camera.position, "z", -10, 10, 0.01);
 }
 
-export const pageInfo = { title: "SpecularMap" };
+export const pageInfo = { title: "Ambient Light" };
