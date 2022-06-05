@@ -1,19 +1,25 @@
 import * as d3 from "d3";
 import { saveAs } from "file-saver";
-// interface Node {
-//   name: string;
-//   group: number;
-//   id: string;
-//   label: string;
-// }
+interface Node {
+  name: string;
+  group: string;
+  id: number;
+  runtime: number;
+  label: string;
+}
 
-// interface Link {
-//   source: string;
-//   target: string;
-//   type: number;
-// }
+interface Link {
+  source: number;
+  target: number;
+  type: string;
+}
 
-const dataSet = {
+interface DataSet {
+  nodes: Node[];
+  links: Link[];
+}
+
+const dataSet: DataSet = {
   nodes: [
     // 节点名称，标签简称、全称，运行时间等
     { id: 1, name: "节点名", label: "Aggregation", group: "Team C", runtime: 20 },
@@ -67,7 +73,7 @@ const dataSet = {
 const width = 890;
 const height = 500;
 
-function render(dataSet) {
+function render(dataSet: DataSet) {
   const nodeRadius = 17;
   const lineOpacity = 0.5;
 
