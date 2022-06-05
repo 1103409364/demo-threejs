@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeshStandardMaterial</title>
+    <style>
+      div#gui {
+        position: absolute;
+        right: 0;
+        top: 0;
+        max-height: 100%;
+        overflow: auto;
+      }
+      div#gui::-webkit-scrollbar{
+        width: 0;
+        height: 0;
+    }
+      #debug1 {
+        font-family: monospace;
+        font-size: larger;
+        position: absolute;
+        left: 0px;
+        top: 100px;
+        border: 1px solid red;
+        width: 180px;
+        height: 310px;
+        color: white;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <div id="gui"></div>
+    <!-- <div id="debug1"></div> -->
+    <script type="module" src="/src/pages/threejs-and-typescript/9-mesh-standard-material/main.ts"></script>
+  </body>
+</html>
