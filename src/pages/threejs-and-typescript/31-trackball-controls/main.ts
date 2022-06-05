@@ -7,8 +7,6 @@ import {
   AxesHelper,
   BoxGeometry,
   MeshBasicMaterial,
-  MOUSE,
-  TOUCH,
 } from "three";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 // import Stats from "three/examples/jsm/libs/stats.module";

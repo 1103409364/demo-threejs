@@ -17,8 +17,8 @@ import {
   MixOperation,
   AddOperation,
   PointLight,
-  TextureLoader,
-  CubeTextureLoader,
+  // TextureLoader,
+  // CubeTextureLoader,
   MeshPhongMaterial,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -26,7 +26,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { OrbitControls } from "@three-ts/orbit-controls";
 import { Stats } from "stats.ts";
 import { GUI } from "lil-gui"; // dat.GUI 的替代方案
-import { getImg } from "@/utils";
+// import { getImg } from "@/utils";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 // 场景
@@ -61,16 +61,16 @@ const torusKnotGeometry = new TorusKnotGeometry();
 
 const material = new MeshPhongMaterial();
 
-const texture = new TextureLoader().load(getImg("grid")); // 表面纹理
+// const texture = new TextureLoader().load(getImg("grid")); // 表面纹理
 // material.map = texture;
-const envTexture = new CubeTextureLoader().load([
-  getImg("px_50"),
-  getImg("nx_50"),
-  getImg("py_50"),
-  getImg("ny_50"),
-  getImg("pz_50"),
-  getImg("nz_50"),
-]); // 六个面 环境纹理
+// const envTexture = new CubeTextureLoader().load([
+//   getImg("px_50"),
+//   getImg("nx_50"),
+//   getImg("py_50"),
+//   getImg("ny_50"),
+//   getImg("pz_50"),
+//   getImg("nz_50"),
+// ]); // 六个面 环境纹理
 
 //envTexture.mapping = CubeReflectionMapping
 // envTexture.mapping = CubeRefractionMapping;
