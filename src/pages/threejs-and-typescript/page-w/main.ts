@@ -29,15 +29,15 @@ const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
 
-const menuPanel = document.getElementById("menuPanel") as HTMLDivElement;
-const startButton = document.getElementById("startButton") as HTMLInputElement;
+const menuPanel = document.getElementById("menuPanel");
+const startButton = document.getElementById("startButton");
 // 第一人称视角控制
 const controls = new PointerLockControls(camera, renderer.domElement);
-startButton.addEventListener("click", controls.lock.bind(controls), false);
+startButton?.addEventListener("click", controls.lock.bind(controls), false);
 
 controls.addEventListener("change", () => console.log("Controls Change"));
-controls.addEventListener("lock", () => (menuPanel.style.display = "none"));
-controls.addEventListener("unlock", () => (menuPanel.style.display = "block"));
+controls.addEventListener("lock", () => menuPanel && (menuPanel.style.display = "none"));
+controls.addEventListener("unlock", () => menuPanel && (menuPanel.style.display = "block"));
 
 const planeGeometry = new PlaneGeometry(100, 100, 50, 50);
 const material = new MeshBasicMaterial({
