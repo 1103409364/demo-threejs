@@ -17,7 +17,7 @@ function getPages() {
   paths.forEach((item) => {
     const title = item?.split("/")[0];
     const subTitle = item?.split("/")[1];
-    !item?.includes("index") && (temp += `<li>${title}: <a href="/${item}">${subTitle}</a></li>`);
+    subTitle && (temp += `<li>${title}: <a href="/${item}">${subTitle}</a></li>`);
   });
   temp += "</ul>";
   return temp;

@@ -6,7 +6,7 @@ import mpa from "vite-plugin-mpa";
 // * @see https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    mpa({ open: "/index" }),
+    mpa({ open: "/contents" }),
     // legacy({
     //   targets: ["ie >= 11"],
     //   additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
