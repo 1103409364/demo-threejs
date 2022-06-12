@@ -1,14 +1,8 @@
 import "@/style/index.scss";
-import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  AxesHelper,
-  PointLight,
-  MeshBasicMaterial,
-} from "three";
+import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper, PointLight } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
 // import Stats from "three/examples/jsm/libs/stats.module";
 import { Stats } from "stats.ts";
 import { GUI } from "lil-gui"; // dat.GUI 的替代方案
@@ -29,33 +23,65 @@ const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
 
-// const geometry = new BoxGeometry();
-// const material = new MeshNormalMaterial();
-// const cube = new Mesh(geometry, material);
-// scene.add(cube);
-
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+const mtlLoader = new MTLLoader();
+mtlLoader.load(
+  "/assets/models/monkey.mtl",
+  (materials) => {
+    materials.preload();
 
-const objLoader = new OBJLoader();
-objLoader.load(
-  "/assets/models/monkey.obj",
-  (object) => {
-    // (object.children[0] as THREE.Mesh).material = material;
-    object.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        (child as THREE.Mesh).material = material;
-      }
-    });
-    scene.add(object);
+    const objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.load(
+      "/assets/models/monkey.obj",
+      (object) => {
+        object.position.x = -1.5;
+        scene.add(object);
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      (error) => {
+        console.log("An error happened");
+      },
+    );
   },
   (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded"); // 已加载的百分比
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
-    console.log(error);
+    console.log("An error happened");
+  },
+);
+
+mtlLoader.load(
+  "/assets/models/monkeyTextured.mtl", //材质
+  (materials) => {
+    materials.preload();
+
+    const objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.load(
+      "/assets/models/monkeyTextured.obj", //模型
+      (object) => {
+        object.position.x = 1.5;
+        scene.add(object);
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      (error) => {
+        console.log("An error happened");
+      },
+    );
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  (error) => {
+    console.log("An error happened");
   },
 );
 
