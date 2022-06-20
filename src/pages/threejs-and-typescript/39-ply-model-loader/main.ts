@@ -1,53 +1,74 @@
 import "@/style/index.scss";
-import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper, Mesh, Light } from "three";
+import {
+  Scene,
+  PerspectiveCamera,
+  WebGLRenderer,
+  AxesHelper,
+  SpotLight,
+  CubeTextureLoader,
+  CubeReflectionMapping,
+  MeshPhysicalMaterial,
+  DoubleSide,
+  Mesh,
+  sRGBEncoding,
+} from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
+import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
 // import Stats from "three/examples/jsm/libs/stats.module";
 import { Stats } from "stats.ts";
 import { GUI } from "lil-gui"; // dat.GUI 的替代方案
+import { getImg } from "@/utils";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
 const scene = new Scene();
 scene.add(new AxesHelper(5));
 
+const light = new SpotLight();
+light.position.set(20, 20, 20);
+scene.add(light);
+
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 3;
+camera.position.z = 40;
 
 const renderer = new WebGLRenderer();
-renderer.physicallyCorrectLights = true; // 自然光
-renderer.shadowMap.enabled = true; // 启用阴影
-
+renderer.outputEncoding = sRGBEncoding;
 renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-const loader = new GLTFLoader();
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("/node_modules/three/examples/js/libs/draco/");
-dracoLoader.setDecoderConfig({ type: "wasm" }); // 设置为 js 或者 wasm 版本解压器
-loader.setDRACOLoader(dracoLoader);
+const envTexture = new CubeTextureLoader().load([
+  getImg("px_50"),
+  getImg("px_50"),
+  getImg("nx_50"),
+  getImg("py_50"),
+  getImg("ny_50"),
+  getImg("pz_50"),
+  getImg("nz_50"),
+]);
+envTexture.mapping = CubeReflectionMapping;
+const material = new MeshPhysicalMaterial({
+  color: 0xb2ffc8,
+  envMap: envTexture,
+  metalness: 0,
+  roughness: 0,
+  transparent: true,
+  transmission: 1,
+  side: DoubleSide,
+  clearcoat: 1.0,
+  clearcoatRoughness: 0.25,
+});
+
+const loader = new PLYLoader();
 loader.load(
-  "/assets/models3/monkey_compressed.glb", // 加载压缩的 glb 文件
-  (gltf) => {
-    gltf.scene.traverse((child) => {
-      if ((<Mesh>child).isMesh) {
-        const m = child;
-        m.receiveShadow = true; // 接受阴影
-        m.castShadow = true;
-      }
-      if ((<Light>child).isLight) {
-        const l = <Light>child;
-        l.castShadow = true;
-        l.shadow.bias = -0.003; // 偏移
-        l.shadow.mapSize.width = 2048;
-        l.shadow.mapSize.height = 2048;
-      }
-    });
-    scene.add(gltf.scene);
+  "/assets/models/sean4.ply",
+  function (geometry) {
+    geometry.computeVertexNormals();
+    const mesh = new Mesh(geometry, material);
+    mesh.rotateX(-Math.PI / 2);
+    scene.add(mesh);
   },
   (xhr) => {
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -56,6 +77,7 @@ loader.load(
     console.log(error);
   },
 );
+
 window.addEventListener("resize", onWindowResize, false);
 
 const stats = addStats();
