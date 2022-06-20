@@ -13,7 +13,7 @@ import {
   sRGBEncoding,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 // import Stats from "three/examples/jsm/libs/stats.module";
 import { Stats } from "stats.ts";
 import { GUI } from "lil-gui"; // dat.GUI 的替代方案
@@ -29,7 +29,7 @@ light.position.set(20, 20, 20);
 scene.add(light);
 
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 40;
+camera.position.z = 10;
 
 const renderer = new WebGLRenderer();
 renderer.outputEncoding = sRGBEncoding;
@@ -60,13 +60,12 @@ const material = new MeshPhysicalMaterial({
   clearcoatRoughness: 0.25,
 });
 
-const loader = new PLYLoader();
+const loader = new STLLoader();
+let mesh: Mesh;
 loader.load(
-  "/assets/models/sean4.ply",
+  "/assets/models/example.stl",
   function (geometry) {
-    geometry.computeVertexNormals();
-    const mesh = new Mesh(geometry, material);
-    mesh.rotateX(-Math.PI / 2);
+    mesh = new Mesh(geometry, material);
     scene.add(mesh);
   },
   (xhr) => {
@@ -90,7 +89,8 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
   stats.update();
-
+  mesh.rotation.x += 0.005;
+  mesh.rotation.y += 0.005;
   render();
 }
 
