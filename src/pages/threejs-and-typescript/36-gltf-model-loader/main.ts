@@ -30,7 +30,7 @@ controls.enableDamping = true;
 
 const loader = new GLTFLoader();
 loader.load(
-  "/assets/models3/monkey.glb",
+  "/assets/models/monkey.glb",
   (gltf) => {
     gltf.scene.traverse((child) => {
       if ((<Mesh>child).isMesh) {

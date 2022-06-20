@@ -31,7 +31,7 @@ dracoLoader.setDecoderPath("/node_modules/three/examples/js/libs/draco/");
 dracoLoader.setDecoderConfig({ type: "wasm" }); // 设置为 js 或者 wasm 版本解压器
 loader.setDRACOLoader(dracoLoader);
 loader.load(
-  "/assets/models3/monkey_compressed.glb", // 加载压缩的 glb 文件
+  "/assets/models/monkey_compressed.glb", // 加载压缩的 glb 文件
   (gltf) => {
     gltf.scene.traverse((child) => {
       if ((<Mesh>child).isMesh) {
