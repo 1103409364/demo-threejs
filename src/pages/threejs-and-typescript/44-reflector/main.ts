@@ -14,7 +14,7 @@ import {
   // PCFSoftShadowMap,
   // BasicShadowMap,
   // PCFShadowMap,
-  VSMShadowMap,
+  // VSMShadowMap,
   PointLight,
   TextureLoader,
   BoxHelper,
