@@ -6,7 +6,6 @@ import {
   AxesHelper,
   AnimationMixer,
   AnimationAction,
-  Object3D,
   Clock,
   SpotLight,
   PlaneGeometry,
@@ -16,7 +15,7 @@ import {
   // CameraHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // import Stats from "three/examples/jsm/libs/stats.module";
 import { Stats } from "stats.ts";
 import { GUI } from "lil-gui"; // dat.GUI 的替代方案
@@ -66,54 +65,53 @@ let modelReady = false;
 const animationActions: AnimationAction[] = [];
 let activeAction: AnimationAction;
 let lastAction: AnimationAction;
-const fbxLoader: FBXLoader = new FBXLoader();
+const gltfLoader = new GLTFLoader();
 
-fbxLoader.load(
-  "/assets/models/vanguard_t_choonyung.fbx",
-  (object) => {
-    // console.log(animationsFolder); // 这里能访问到 animationsFolder ？
-    object.traverse(function (child) {
-      if ((<Mesh>child).isMesh) {
-        child.castShadow = true; // 是否投射阴影
-        child.receiveShadow = true;
+gltfLoader.load(
+  "/assets/models/vanguard_t_choonyung.glb",
+  (gltf) => {
+    // gltf.scene.scale.set(0.001, 0.001, 0.001);
+    gltf.scene.traverse((node) => {
+      if ((<Mesh>node).isMesh) {
+        node.castShadow = true; // 是否投射阴影
+        node.receiveShadow = true; // 是否接收阴影
       }
     });
-    object.scale.set(0.01, 0.01, 0.01);
-    mixer = new AnimationMixer(object); // 创建动画混合器
 
-    const animationAction = mixer.clipAction((object as Object3D).animations[0]);
+    mixer = new AnimationMixer(gltf.scene);
+
+    const animationAction = mixer.clipAction(gltf.animations[0]);
     animationActions.push(animationAction);
     animationsFolder.add(animations, "default");
     activeAction = animationActions[0];
-    scene.add(object);
+
+    scene.add(gltf.scene);
 
     //add an animation from another file
-    fbxLoader.load(
-      "/assets/models/hip_hop_dancing.fbx",
-      (object) => {
+    gltfLoader.load(
+      "/assets/models/hip_hop_dancing.glb",
+      (gltf) => {
         console.log("loaded hip_hop_dancing");
-
-        const animationAction = mixer.clipAction((object as Object3D).animations[0]);
+        const animationAction = mixer.clipAction(gltf.animations[0]);
         animationActions.push(animationAction);
-        animationsFolder.add(animations, "hip_hop");
+        animationsFolder.add(animations, "hip_hop_dancing");
 
         //add an animation from another file
-        fbxLoader.load(
-          "/assets/models/break_dance_freeze.fbx",
-          (object) => {
+        gltfLoader.load(
+          "/assets/models/break_dance_freeze.glb",
+          (gltf) => {
             console.log("loaded break_dance_freeze");
-            const animationAction = mixer.clipAction((object as Object3D).animations[0]);
+            const animationAction = mixer.clipAction(gltf.animations[0]);
             animationActions.push(animationAction);
             animationsFolder.add(animations, "break_dance_freeze");
 
             //add an animation from another file
-            fbxLoader.load(
-              "/assets/models/flair.fbx",
-              (object) => {
+            gltfLoader.load(
+              "/assets/models/flair.glb",
+              (gltf) => {
                 console.log("loaded flair");
-                (object as Object3D).animations[0].tracks.shift(); //delete the specific track that moves the object forward while running
-                //console.dir((object as Object3D).animations[0])
-                const animationAction = mixer.clipAction((object as Object3D).animations[0]);
+                gltf.animations[0].tracks.shift(); //delete the specific track that moves the object forward while running
+                const animationAction = mixer.clipAction(gltf.animations[0]);
                 animationActions.push(animationAction);
                 animationsFolder.add(animations, "flair");
 
@@ -166,7 +164,7 @@ const animations = {
   default() {
     setAction(animationActions[0]);
   },
-  hip_hop() {
+  hip_hop_dancing() {
     setAction(animationActions[1]);
   },
   break_dance_freeze() {
