@@ -7,11 +7,15 @@ import {
   AnimationMixer,
   AnimationAction,
   Clock,
-  SpotLight,
+  // SpotLight,
   PlaneGeometry,
   Mesh,
   MeshPhongMaterial,
-  PCFSoftShadowMap,
+  // PCFSoftShadowMap,
+  DirectionalLight,
+  // BasicShadowMap,
+  // PCFShadowMap,
+  VSMShadowMap,
   // CameraHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -25,17 +29,26 @@ const app = document.querySelector<HTMLDivElement>("#app");
 const scene = new Scene();
 scene.add(new AxesHelper(5));
 
-const light1 = new SpotLight(0xffffff, 2);
-light1.position.set(0, 5, 0);
-light1.castShadow = true;
-light1.shadow.mapSize.width = 1000; // 增加阴影贴图面积可以提高阴影质量
-light1.shadow.mapSize.height = 1000;
-light1.shadow.camera.near = 0.5;
-light1.shadow.camera.far = 500;
-scene.add(light1);
-const light2 = new SpotLight();
-light2.position.set(2, 2, 2);
-scene.add(light2);
+const light = new DirectionalLight(0xffffff, 8);
+light.castShadow = true;
+light.shadow.mapSize.width = 512; // 增加阴影贴图面积可以提高阴影质量
+light.shadow.mapSize.height = 512;
+light.shadow.camera.near = 0.5;
+light.shadow.camera.far = 100;
+light.position.set(1, 2, 1);
+scene.add(light);
+
+// const light1 = new SpotLight(0xffffff, 2);
+// light1.position.set(0, 5, 0);
+// light1.castShadow = true;
+// light1.shadow.mapSize.width = 1000; // 增加阴影贴图面积可以提高阴影质量
+// light1.shadow.mapSize.height = 1000;
+// light1.shadow.camera.near = 0.5;
+// light1.shadow.camera.far = 500;
+// scene.add(light1);
+// const light2 = new SpotLight();
+// light2.position.set(2, 2, 2);
+// scene.add(light2);
 
 // const helper = new CameraHelper(light1.shadow.camera);
 // scene.add(helper);
@@ -46,7 +59,10 @@ camera.position.set(1, 1.4, 1.0);
 const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = PCFSoftShadowMap;
+// renderer.shadowMap.type = PCFSoftShadowMap;
+// renderer.shadowMap.type = BasicShadowMap; // 质量低
+// renderer.shadowMap.type = PCFShadowMap;
+renderer.shadowMap.type = VSMShadowMap; // 平面有横条
 app?.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
