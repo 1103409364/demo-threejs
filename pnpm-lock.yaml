@@ -4,7 +4,6 @@ specifiers:
   '@three-ts/orbit-controls': ^1.4.7
   '@types/d3': ^7.4.0
   '@types/file-saver': ^2.0.5
-  '@types/node': ^17.0.34
   '@types/three': ^0.140.0
   '@typescript-eslint/eslint-plugin': ^5.24.0
   '@typescript-eslint/parser': ^5.24.0
@@ -35,7 +34,6 @@ dependencies:
 devDependencies:
   '@types/d3': 7.4.0
   '@types/file-saver': 2.0.5
-  '@types/node': 17.0.34
   '@types/three': 0.140.0
   '@typescript-eslint/eslint-plugin': 5.25.0_qo2hgs5jt7x2a3p77h2rutcdae
   '@typescript-eslint/parser': 5.25.0_hcfsmds2fshutdssjqluwm76uu
@@ -334,10 +332,6 @@ packages:
 
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
-    dev: true
-
-  /@types/node/17.0.34:
-    resolution: {integrity: sha512-XImEz7XwTvDBtzlTnm8YvMqGW/ErMWBsKZ+hMTvnDIjGCKxwK5Xpc+c/oQjOauwq8M4OS11hEkpjX8rrI/eEgA==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
