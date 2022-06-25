@@ -8,7 +8,6 @@ import {
   PlaneGeometry,
   Mesh,
   MeshPhongMaterial,
-  PointLight,
   TextureLoader,
   AmbientLight,
   CubeCamera,
@@ -17,13 +16,17 @@ import {
   SphereGeometry,
   WebGLCubeRenderTarget,
   Color,
+  DirectionalLight,
+  BackSide,
+  MixOperation,
+  CubeRefractionMapping,
   // CameraHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import Stats from "three/examples/jsm/libs/stats.module";
 import { Stats } from "stats.ts";
 
-// import { GUI } from "lil-gui"; // dat.GUI 的替代方案
+import { GUI } from "lil-gui"; // dat.GUI 的替代方案
 import { getImg } from "@/utils";
 
 const app = document.querySelector<HTMLDivElement>("#app");
@@ -33,15 +36,19 @@ scene.add(new AxesHelper(5));
 
 scene.background = new Color(0x87ceeb);
 
-const ambientLight = new AmbientLight(0xaaaaaa); // 环境光
+const ambientLight = new AmbientLight(0xaaaaaa);
 scene.add(ambientLight);
 
-const light1 = new PointLight();
-light1.position.set(10, 10, 10);
+const light1 = new DirectionalLight(); // 定向光
+light1.position.set(5, 10, 5);
 light1.castShadow = true;
 light1.shadow.bias = -0.0002;
-light1.shadow.mapSize.height = 2048;
-light1.shadow.mapSize.width = 2048;
+light1.shadow.mapSize.height = 1024;
+light1.shadow.mapSize.width = 1024;
+light1.shadow.camera.left = -10;
+light1.shadow.camera.right = 10;
+light1.shadow.camera.top = 10;
+light1.shadow.camera.bottom = -10;
 scene.add(light1);
 
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -94,14 +101,39 @@ const pivot3 = new Object3D();
 scene.add(pivot3);
 
 const material1 = new MeshPhongMaterial({
+  shininess: 100,
+  color: 0xffffff,
+  specular: 0xffffff,
   envMap: cubeRenderTarget1.texture,
+  refractionRatio: 0.5,
+  transparent: true,
+  side: BackSide,
+  combine: MixOperation,
 });
 const material2 = new MeshPhongMaterial({
+  shininess: 100,
+  color: 0xffffff,
+  specular: 0xffffff,
   envMap: cubeRenderTarget2.texture,
+  refractionRatio: 0.5,
+  transparent: true,
+  side: BackSide,
+  combine: MixOperation,
 });
 const material3 = new MeshPhongMaterial({
+  shininess: 100,
+  color: 0xffffff,
+  specular: 0xffffff,
   envMap: cubeRenderTarget3.texture,
+  refractionRatio: 0.5,
+  transparent: true,
+  side: BackSide,
+  combine: MixOperation,
 });
+
+cubeRenderTarget1.texture.mapping = CubeRefractionMapping;
+cubeRenderTarget2.texture.mapping = CubeRefractionMapping;
+cubeRenderTarget3.texture.mapping = CubeRefractionMapping;
 
 const ball1 = new Mesh(new SphereGeometry(1, 32, 32), material1);
 ball1.position.set(1, 1.1, 0);
@@ -124,9 +156,22 @@ ball3.receiveShadow = true;
 ball3.add(cubeCamera3);
 pivot3.add(ball3);
 
+const data = { refractionRatio: 0 };
+
+const gui = new GUI();
+const refractionFolder = gui.addFolder("Refraction");
+refractionFolder.add(data, "refractionRatio", 0, 1, 0.01).onChange((v: number) => {
+  material1.refractionRatio = v;
+  material2.refractionRatio = v;
+  material3.refractionRatio = v;
+});
+refractionFolder.open();
+
 const stats = new Stats();
-document.body.appendChild(stats.dom);
+document.querySelector("#gui")?.appendChild(stats.dom);
+
 const clock = new Clock();
+
 function animate() {
   requestAnimationFrame(animate);
 
@@ -146,9 +191,15 @@ function animate() {
 }
 
 function render() {
+  ball1.visible = false;
   cubeCamera1.update(renderer, scene);
+  ball1.visible = true;
+  ball2.visible = false;
   cubeCamera2.update(renderer, scene);
+  ball2.visible = true;
+  ball3.visible = false;
   cubeCamera3.update(renderer, scene);
+  ball3.visible = true;
 
   renderer.render(scene, camera);
 }
