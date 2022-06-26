@@ -257,7 +257,7 @@ const setAction = (toAction: AnimationAction, loop: boolean) => {
     activeAction.fadeIn(0.1);
     activeAction.play();
     if (!loop) {
-      activeAction.clampWhenFinished = true;
+      activeAction.clampWhenFinished = true; // 保留动作最后一帧
       activeAction.loop = LoopOnce; // 一次
     }
   }
