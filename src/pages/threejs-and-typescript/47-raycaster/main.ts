@@ -4,7 +4,6 @@ import {
   PerspectiveCamera,
   WebGLRenderer,
   AxesHelper,
-  Clock,
   Mesh,
   Object3D,
   sRGBEncoding,
@@ -74,7 +73,7 @@ loader.load(
         const m = child as Mesh;
         m.receiveShadow = true;
         m.castShadow = true;
-        (m.material as MeshStandardMaterial).flatShading = true;
+        (m.material as MeshStandardMaterial).flatShading = true; // 显示面
         sceneMeshes.push(m);
       }
       if ((child as Light).isLight) {
