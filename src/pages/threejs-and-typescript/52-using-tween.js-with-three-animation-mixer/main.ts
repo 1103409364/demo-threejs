@@ -35,7 +35,7 @@ const progressBar = document.querySelector<HTMLProgressElement>("#progressBar");
 const scene = new Scene();
 scene.add(new AxesHelper(5));
 
-const light = new AmbientLight(undefined, 0.5); // 环境光
+const light = new AmbientLight(undefined, 0.1); // 环境光
 // light.position.set(10, 10, 10);
 scene.add(light);
 
@@ -225,7 +225,7 @@ function onDoubleClick(event: MouseEvent) {
       ) //walks 1.2 meters a second * the distance
       .onUpdate(() => {
         controls.target.set(modelMesh.position.x, modelMesh.position.y + 1, modelMesh.position.z); // 移动画面
-        light1.target = modelMesh;
+        light1.target = modelMesh; // 光源跟随
         light2.target = modelMesh;
       })
       .start()
