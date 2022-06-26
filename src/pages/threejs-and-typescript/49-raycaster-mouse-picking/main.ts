@@ -63,6 +63,7 @@ loader.load(
         const m = child as Mesh;
         //the sphere and plane will not be mouse picked. THe plane will receive shadows while everything else casts shadows.
         switch (m.name) {
+          // 排除球体和平面，因此它们不会被鼠标选中。
           case "Plane":
             m.receiveShadow = true;
             break;
@@ -114,7 +115,7 @@ function onDocumentMouseMove(event: MouseEvent) {
   } else {
     intersectedObject = null;
   }
-  pickableObjects.forEach((o: THREE.Mesh, i) => {
+  pickableObjects.forEach((o: Mesh, i) => {
     if (intersectedObject && intersectedObject.name === o.name) {
       pickableObjects[i].material = highlightedMaterial;
     } else {
