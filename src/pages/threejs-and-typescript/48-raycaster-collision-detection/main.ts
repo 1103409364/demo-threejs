@@ -5,7 +5,6 @@ import {
   WebGLRenderer,
   AxesHelper,
   Mesh,
-  sRGBEncoding,
   MeshNormalMaterial,
   Raycaster,
   Vector3,
@@ -16,6 +15,7 @@ import {
   Line,
   LineBasicMaterial,
   PlaneBufferGeometry,
+  Material,
   // CameraHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -34,21 +34,16 @@ const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 camera.position.z = 2;
 
 const renderer = new WebGLRenderer();
-renderer.physicallyCorrectLights = true;
-renderer.shadowMap.enabled = true;
-renderer.outputEncoding = sRGBEncoding;
-
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
 app?.appendChild(renderer.domElement);
 
 const raycaster = new Raycaster();
 const sceneMeshes: Mesh[] = [];
 const dir = new Vector3();
-let intersects: Intersection[] = [];
-
+let intersects: Intersection[] = []; // 相交的
+let intersected: Mesh<BufferGeometry, Material | Material[]>;
 const orbitControls = new OrbitControls(camera, renderer.domElement);
-orbitControls.enableDamping = true;
+// orbitControls.enableDamping = true;
 
 orbitControls.addEventListener("change", function () {
   xLine.position.copy(orbitControls.target);
@@ -56,38 +51,57 @@ orbitControls.addEventListener("change", function () {
   zLine.position.copy(orbitControls.target);
 
   raycaster.set(orbitControls.target, dir.subVectors(camera.position, orbitControls.target).normalize());
-
   intersects = raycaster.intersectObjects(sceneMeshes, false);
   if (intersects.length > 0) {
-    if (intersects[0].distance < orbitControls.target.distanceTo(camera.position)) {
-      camera.position.copy(intersects[0].point);
+    // 相交移动相机
+    // if (intersects[0].distance < orbitControls.target.distanceTo(camera.position)) {
+    // camera.position.copy(intersects[0].point);
+    // }
+    // 相交的材质半透明
+    intersected = <Mesh>intersects[0].object;
+    (<MeshNormalMaterial>intersected.material).opacity = 0.1;
+  } else {
+    if (intersected) {
+      (<MeshNormalMaterial>intersected.material).opacity = 1;
     }
   }
 });
 
-const floor = new Mesh(new PlaneBufferGeometry(10, 10), new MeshNormalMaterial({ side: DoubleSide }));
+const floor = new Mesh(
+  new PlaneBufferGeometry(10, 10),
+  new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
+);
 floor.rotateX(-Math.PI / 2);
 floor.position.y = -1;
 scene.add(floor);
 sceneMeshes.push(floor);
 
-const wall1 = new Mesh(new PlaneBufferGeometry(2, 2), new MeshNormalMaterial({ side: DoubleSide }));
-wall1.position.x = 4;
+const wall1 = new Mesh(
+  new PlaneBufferGeometry(2, 2),
+  new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
+);
+wall1.position.x = 3;
 wall1.rotateY(-Math.PI / 2);
 scene.add(wall1);
 sceneMeshes.push(wall1);
 
-const wall2 = new Mesh(new PlaneBufferGeometry(2, 2), new MeshNormalMaterial({ side: DoubleSide }));
-wall2.position.z = -3;
+const wall2 = new Mesh(
+  new PlaneBufferGeometry(2, 2),
+  new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
+);
+wall2.position.z = -2;
 scene.add(wall2);
 sceneMeshes.push(wall2);
 
-const cube: Mesh = new Mesh(new BoxBufferGeometry(), new MeshNormalMaterial());
+const cube: Mesh = new Mesh(new BoxBufferGeometry(), new MeshNormalMaterial({ transparent: true }));
 cube.position.set(-3, 0, 0);
 scene.add(cube);
 sceneMeshes.push(cube);
 
-const ceiling = new Mesh(new PlaneBufferGeometry(10, 10), new MeshNormalMaterial({ side: DoubleSide }));
+const ceiling = new Mesh(
+  new PlaneBufferGeometry(10, 10),
+  new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
+);
 ceiling.rotateX(Math.PI / 2);
 ceiling.position.y = 3;
 scene.add(ceiling);
