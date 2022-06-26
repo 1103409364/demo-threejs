@@ -18,7 +18,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+       "*tween.module.min": ["src/typings/tween.js"]
     }
   },
   "include": ["src", "src/pages/*/main.ts"]
