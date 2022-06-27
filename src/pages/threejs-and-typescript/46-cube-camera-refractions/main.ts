@@ -168,7 +168,7 @@ refractionFolder.add(data, "refractionRatio", 0, 1, 0.01).onChange((v: number) =
 refractionFolder.open();
 
 const stats = new Stats();
-document.querySelector("#gui")?.appendChild(stats.dom);
+app?.appendChild(stats.dom);
 
 const clock = new Clock();
 

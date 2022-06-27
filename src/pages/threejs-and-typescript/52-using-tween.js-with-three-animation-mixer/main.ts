@@ -233,7 +233,7 @@ function onDoubleClick(event: MouseEvent) {
   }
 }
 const stats = new Stats();
-document.querySelector("#gui")?.appendChild(stats.dom);
+app?.appendChild(stats.dom);
 
 const animations = {
   default() {

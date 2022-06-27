@@ -125,7 +125,8 @@ ball3.add(cubeCamera3);
 pivot3.add(ball3);
 
 const stats = new Stats();
-document.body.appendChild(stats.dom);
+app?.appendChild(stats.dom);
+
 const clock = new Clock();
 function animate() {
   requestAnimationFrame(animate);
