@@ -13,7 +13,6 @@ import {
   SphereGeometry,
   SpotLight,
   TorusKnotGeometry,
-  // BufferGeometry,
   Clock,
   CylinderGeometry,
   Object3D,
