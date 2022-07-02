@@ -24,6 +24,7 @@ specifiers:
   three: ^0.140.2
   typescript: ^4.5.4
   vite: ^2.9.9
+  vite-plugin-glsl: ^0.1.5
   vite-plugin-mpa: ^1.1.2
 
 dependencies:
@@ -52,6 +53,7 @@ devDependencies:
   stylelint-config-recess-order: 3.0.0_stylelint@14.8.2
   typescript: 4.6.4
   vite: 2.9.9_sass@1.51.0
+  vite-plugin-glsl: 0.1.5
   vite-plugin-mpa: 1.1.2
 
 packages:
@@ -133,6 +135,14 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+    dev: true
+
+  /@rollup/pluginutils/4.2.1:
+    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
     dev: true
 
   /@three-ts/orbit-controls/1.4.7:
@@ -1407,6 +1417,10 @@ packages:
     engines: {node: '>=4.0'}
     dev: true
 
+  /estree-walker/2.0.2:
+    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
+    dev: true
+
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
@@ -2506,6 +2520,10 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
+  /tslib/2.4.0:
+    resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
+    dev: true
+
   /tsutils/3.21.0_typescript@4.6.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
@@ -2568,6 +2586,14 @@ packages:
     dependencies:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /vite-plugin-glsl/0.1.5:
+    resolution: {integrity: sha512-BsY0ndZthCXYipF/rc/Vri0s6N/JNwMyCDRJx7qiJNNY8+MiDgzhT2iOIHL7O7v3CvjOG9yOM2+WVTNvnHGT1w==}
+    engines: {node: '>= 14.17.0', npm: '>= 6.14.13'}
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      tslib: 2.4.0
     dev: true
 
   /vite-plugin-mpa/1.1.2:
