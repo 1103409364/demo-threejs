@@ -196,15 +196,17 @@ function main() {
   const tankTarget = new THREE.Vector2();
 
   const cameras = [
-    { cam: camera, desc: "detached camera" },
-    { cam: turretCamera, desc: "on turret looking at target" },
-    { cam: targetCamera, desc: "near target looking at tank" },
-    { cam: tankCamera, desc: "above back of tank" },
+    { cam: camera, desc: "detached camera" }, // 分离式相机 独立于场景的相机
+    { cam: turretCamera, desc: "on turret looking at target" }, // 在炮塔上看着目标 炮塔相机
+    { cam: targetCamera, desc: "near target looking at tank" }, // 靠近目标看坦克 目标相机
+    { cam: tankCamera, desc: "above back of tank" }, // 坦克后部上方 坦克相机
   ];
 
   const infoElem = document.querySelector("#info");
 
   function render(time: number) {
+    console.log(time);
+
     time *= 0.001;
 
     if (resizeRendererToDisplaySize(renderer)) {
@@ -245,7 +247,7 @@ function main() {
     wheelMeshes.forEach((obj) => {
       obj.rotation.x = time * 3;
     });
-
+    // 切换相机
     const camera = cameras[(time * 0.25) % cameras.length | 0];
     infoElem && (infoElem.textContent = camera.desc);
 
@@ -253,7 +255,9 @@ function main() {
 
     requestAnimationFrame(render);
   }
-
+  //  https://developer.mozilla.org/zh-CN/docs/Web/API/window/requestAnimationFrame
+  //  callback 下一次重绘之前更新动画帧所调用的函数会被传入DOMHighResTimeStamp参数，
+  // 该参数与performance.now()的返回值相同，它表示requestAnimationFrame() 开始去执行回调函数的时刻。60fps，两帧之间相差大约 16ms
   requestAnimationFrame(render);
 }
 
