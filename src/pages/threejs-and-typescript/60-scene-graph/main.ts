@@ -1,5 +1,5 @@
 import * as THREE from "three";
-
+// https://threejs.org/manual/#zh/scenegraph
 function main() {
   const canvas = document.querySelector("#c");
   if (!canvas) return;
