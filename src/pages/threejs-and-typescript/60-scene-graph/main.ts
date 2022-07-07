@@ -231,7 +231,7 @@ function main() {
     curve.getPointAt(tankTime % 1, tankPosition);
     curve.getPointAt((tankTime + 0.01) % 1, tankTarget);
     tank.position.set(tankPosition.x, 0, tankPosition.y);
-    tank.lookAt(tankTarget.x, 0, tankTarget.y);
+    tank.lookAt(tankTarget.x, 0, tankTarget.y); // 时坦克沿着轨迹旋转车身方向
 
     // face turret at target
     targetMesh.getWorldPosition(targetPosition);
