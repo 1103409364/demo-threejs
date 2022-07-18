@@ -13,3 +13,36 @@ const template = `
 const app = document.querySelector<HTMLDivElement>("#app");
 app && (app.innerHTML = template);
 // 无法在 "--isolatedModules" 下编译“main.ts”，因为它被视为全局脚本文件。请添加导入、导出或空的 "export {}" 语句来使它成为模块。ts(1208)
+
+interface IState {
+  name: string;
+  age: number;
+}
+
+class TestComponent {
+  private state;
+  private container: HTMLElement;
+  constructor(state: IState, id: string) {
+    this.state = state;
+    this.container = document.querySelector(`#${id}`) as HTMLElement;
+    this.update();
+  }
+  update() {
+    (this.container.querySelector(".name") as HTMLElement).textContent = this.state.name;
+    (this.container.querySelector(".age") as HTMLElement).textContent = this.state.age + "";
+  }
+  set name(value: string) {
+    this.state.name = value;
+    this.update();
+  }
+  set age(value: number) {
+    this.state.age = value;
+    this.update();
+  }
+}
+
+const test = new TestComponent({ name: "小明", age: 15 }, "test");
+setInterval(() => {
+  test.age = Date.now();
+  test.name = "小明" + Math.floor(Math.random() * 10);
+}, 1000);
