@@ -1,5 +1,6 @@
 import "@/components/WordCount";
 import "@/components/WordCount2";
+import axios from "axios";
 
 const template = `
 <h1>Word count rating widget</h1>
@@ -46,3 +47,23 @@ setInterval(() => {
   test.age = Date.now();
   test.name = "小明" + Math.floor(Math.random() * 10);
 }, 1000);
+
+function download(url: string) {
+  return axios({
+    url: url,
+    method: "get",
+    responseType: "blob",
+  });
+}
+
+const downloadBtn = document.querySelector("#download");
+
+downloadBtn &&
+  downloadBtn.addEventListener("click", () => {
+    download(
+      // "https://pdfjs.express/static/files/pdf-js-express-default-doc-v2.pdf",
+      "http://localhost:3030/assets/favicon.svg",
+    ).then((res) => {
+      console.log(res);
+    });
+  });
