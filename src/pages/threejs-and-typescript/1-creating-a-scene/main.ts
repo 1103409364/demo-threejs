@@ -76,13 +76,14 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix(); // 更新摄像机的投影矩阵
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   render();
 }
 
 // 创建一个立方体
 function createCube() {
   const geometry = new BoxGeometry(); // 立方体有一些默认参数，长 宽 高 x,y,z轴的分段数
-  const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true }); // 定义纹理材质 wireframe 线框
+  const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: false }); // 定义纹理材质 wireframe 线框
   const cube = new Mesh(geometry, material);
   return cube;
 }
