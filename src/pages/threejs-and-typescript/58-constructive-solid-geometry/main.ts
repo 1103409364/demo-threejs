@@ -5,7 +5,6 @@ import {
   WebGLRenderer,
   AxesHelper,
   Mesh,
-  Clock,
   SphereGeometry,
   TextureLoader,
   MeshPhongMaterial,
@@ -140,8 +139,8 @@ function onWindowResize() {
 const stats = new Stats();
 app?.appendChild(stats.dom);
 
-const clock = new Clock();
-let delta;
+// const clock = new Clock();
+// let delta;
 
 function animate() {
   requestAnimationFrame(animate);

@@ -1,5 +1,5 @@
 import "@/style/index.scss";
-import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper, PointLight, Mesh, Light } from "three";
+import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper, Mesh, Light } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // import Stats from "three/examples/jsm/libs/stats.module";

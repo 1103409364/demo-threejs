@@ -44,7 +44,7 @@ mtlLoader.load(
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
       },
       (error) => {
-        console.log("An error happened");
+        console.log("An error happened", error);
       },
     );
   },
@@ -52,7 +52,7 @@ mtlLoader.load(
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
-    console.log("An error happened");
+    console.log("An error happened", error);
   },
 );
 
@@ -73,7 +73,7 @@ mtlLoader.load(
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
       },
       (error) => {
-        console.log("An error happened");
+        console.log("An error happened", error);
       },
     );
   },
@@ -81,7 +81,7 @@ mtlLoader.load(
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
-    console.log("An error happened");
+    console.log("An error happened", error);
   },
 );
 

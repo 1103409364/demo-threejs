@@ -4,11 +4,9 @@ import {
   PerspectiveCamera,
   WebGLRenderer,
   AxesHelper,
-  Mesh,
   sRGBEncoding,
   PointLight,
   AmbientLight,
-  MeshBasicMaterial,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
