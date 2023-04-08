@@ -14,6 +14,8 @@
 #   - `Install Dependencies`: 安装项目依赖并构建项目
 #   - `Deploy`: 使用 JamesIves/github-pages-deploy-action action 部署静态网站到 GitHub Pages。
 
+# 开启读写权限 /settings/actions Workflow permissions
+
 name: Deploy to GitHub Pages
 
 on:
