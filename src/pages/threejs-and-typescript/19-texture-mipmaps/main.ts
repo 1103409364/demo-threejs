@@ -137,17 +137,17 @@ function addGui() {
 
     // for Three r138 and later
     material2.map = new TextureLoader().load(getImg("grid"));
-    material2.map.minFilter = Number(texture2.minFilter);
-    material2.map.magFilter = Number(texture2.magFilter);
+    material2.map.minFilter = texture2.minFilter;
+    material2.map.magFilter = texture2.magFilter;
   }
   function updateMagFilter() {
     // for Three r137 and earlier
-    // texture2.magFilter = Number(texture2.magFilter)
+    // texture2.magFilter = texture2.magFilter;
     // texture2.needsUpdate = true
 
     // for Three r138 and later
     material2.map = new TextureLoader().load(getImg("grid"));
-    material2.map.minFilter = Number(texture2.minFilter);
-    material2.map.magFilter = Number(texture2.magFilter);
+    material2.map.minFilter = texture2.minFilter;
+    material2.map.magFilter = texture2.magFilter;
   }
 }

@@ -12,6 +12,7 @@ import {
   Object3D,
   Raycaster,
   Intersection,
+  Vector2,
   // CameraHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -101,13 +102,11 @@ let intersects: Intersection[];
 
 document.addEventListener("mousemove", onDocumentMouseMove, false);
 function onDocumentMouseMove(event: MouseEvent) {
-  raycaster.setFromCamera(
-    {
-      x: (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
-      y: -(event.clientY / renderer.domElement.clientHeight) * 2 + 1,
-    },
-    camera,
-  );
+  const mouse = {
+    x: (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
+    y: -(event.clientY / renderer.domElement.clientHeight) * 2 + 1,
+  };
+  raycaster.setFromCamera(new Vector2(mouse.x, mouse.y), camera);
   intersects = raycaster.intersectObjects(pickableObjects, false);
 
   if (intersects.length > 0) {

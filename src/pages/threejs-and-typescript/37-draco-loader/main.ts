@@ -16,7 +16,7 @@ const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 camera.position.z = 3;
 
 const renderer = new WebGLRenderer();
-renderer.physicallyCorrectLights = true; // 自然光
+renderer.useLegacyLights = true; // 自然光 physicallyCorrectLights 已经被移除
 renderer.shadowMap.enabled = true; // 启用阴影
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -27,7 +27,7 @@ controls.enableDamping = true;
 
 const loader = new GLTFLoader();
 const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("/node_modules/three/examples/js/libs/draco/");
+dracoLoader.setDecoderPath("/node_modules/three/examples/jsm/libs/draco/");
 dracoLoader.setDecoderConfig({ type: "wasm" }); // 设置为 js 或者 wasm 版本解压器
 loader.setDRACOLoader(dracoLoader);
 loader.load(

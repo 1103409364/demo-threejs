@@ -217,7 +217,7 @@ function addGui() {
     plane.geometry = newGeometry;
   }
   function updateMaterial() {
-    material.side = Number(material.side);
+    material.side = material.side;
     material.needsUpdate = true;
   }
 

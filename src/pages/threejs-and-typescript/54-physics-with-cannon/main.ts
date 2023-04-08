@@ -15,6 +15,9 @@ import {
   TorusKnotGeometry,
   BufferGeometry,
   Clock,
+  BufferAttribute,
+  GLBufferAttribute,
+  InterleavedBufferAttribute,
 } from "three";
 import * as CANNON from "cannon-es";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -106,7 +109,7 @@ icosahedronMesh.position.y = 3;
 icosahedronMesh.castShadow = true;
 scene.add(icosahedronMesh);
 
-const position = icosahedronMesh.geometry.attributes.position.array;
+const position = (icosahedronMesh.geometry.attributes.position as InterleavedBufferAttribute).array;
 const icosahedronPoints: CANNON.Vec3[] = [];
 for (let i = 0; i < position.length; i += 3) {
   icosahedronPoints.push(new CANNON.Vec3(position[i], position[i + 1], position[i + 2]));

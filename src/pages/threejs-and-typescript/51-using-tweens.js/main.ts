@@ -9,11 +9,12 @@ import {
   Light,
   Raycaster,
   MeshStandardMaterial,
+  Vector2,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Stats } from "stats.ts";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { TWEEN } from "three/examples/jsm/libs/tween.module";
+import TWEEN from "three/examples/jsm/libs/tween.module";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
@@ -24,7 +25,7 @@ const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 camera.position.set(5, 5, 5);
 
 const renderer = new WebGLRenderer();
-renderer.physicallyCorrectLights = true;
+renderer.useLegacyLights = true; // 物理光照  In r150, physicallyCorrectLights was replaced with useLegacyLights https://threejs.org/docs/#api/en/renderers/WebGLRenderer.physicallyCorrectLights
 renderer.shadowMap.enabled = true;
 renderer.outputEncoding = sRGBEncoding;
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -81,7 +82,7 @@ function onDoubleClick(event: MouseEvent) {
     x: (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
     y: -(event.clientY / renderer.domElement.clientHeight) * 2 + 1,
   };
-  raycaster.setFromCamera(mouse, camera);
+  raycaster.setFromCamera(new Vector2(mouse.x, mouse.y), camera);
 
   const intersects = raycaster.intersectObjects(sceneMeshes, false);
   if (intersects.length > 0) {

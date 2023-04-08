@@ -9,12 +9,12 @@ import {
   Raycaster,
   Vector3,
   Intersection,
-  BoxBufferGeometry,
+  BoxGeometry,
   BufferGeometry,
   DoubleSide,
   Line,
   LineBasicMaterial,
-  PlaneBufferGeometry,
+  PlaneGeometry, // PlaneBufferGeometry 已经被 PlaneGeometry 替代，默认使用 BufferGeometry
   Material,
   // CameraHelper,
 } from "three";
@@ -68,7 +68,7 @@ orbitControls.addEventListener("change", function () {
 });
 
 const floor = new Mesh(
-  new PlaneBufferGeometry(10, 10),
+  new PlaneGeometry(10, 10),
   new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
 );
 floor.rotateX(-Math.PI / 2);
@@ -77,7 +77,7 @@ scene.add(floor);
 sceneMeshes.push(floor);
 
 const wall1 = new Mesh(
-  new PlaneBufferGeometry(2, 2),
+  new PlaneGeometry(2, 2),
   new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
 );
 wall1.position.x = 3;
@@ -86,20 +86,20 @@ scene.add(wall1);
 sceneMeshes.push(wall1);
 
 const wall2 = new Mesh(
-  new PlaneBufferGeometry(2, 2),
+  new PlaneGeometry(2, 2),
   new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
 );
 wall2.position.z = -2;
 scene.add(wall2);
 sceneMeshes.push(wall2);
 
-const cube: Mesh = new Mesh(new BoxBufferGeometry(), new MeshNormalMaterial({ transparent: true }));
+const cube: Mesh = new Mesh(new BoxGeometry(), new MeshNormalMaterial({ transparent: true }));
 cube.position.set(-3, 0, 0);
 scene.add(cube);
 sceneMeshes.push(cube);
 
 const ceiling = new Mesh(
-  new PlaneBufferGeometry(10, 10),
+  new PlaneGeometry(10, 10),
   new MeshNormalMaterial({ side: DoubleSide, transparent: true }),
 );
 ceiling.rotateX(Math.PI / 2);

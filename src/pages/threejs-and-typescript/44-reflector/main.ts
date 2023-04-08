@@ -21,7 +21,7 @@ import {
   BoxGeometry,
   MeshBasicMaterial,
   Group,
-  PlaneBufferGeometry,
+  // PlaneGeometry, // 已废弃
   Color,
   // CameraHelper,
 } from "three";
@@ -179,7 +179,7 @@ function onWindowResize() {
   render();
 }
 
-const mirrorBack1: Reflector = new Reflector(new PlaneBufferGeometry(2, 2), {
+const mirrorBack1: Reflector = new Reflector(new PlaneGeometry(2, 2), {
   color: new Color(0x7f7f7f),
   textureWidth: window.innerWidth * window.devicePixelRatio,
   textureHeight: window.innerHeight * window.devicePixelRatio,
@@ -189,7 +189,7 @@ mirrorBack1.position.y = 1;
 mirrorBack1.position.z = -1;
 scene.add(mirrorBack1);
 
-const mirrorBack2: Reflector = new Reflector(new PlaneBufferGeometry(2, 2), {
+const mirrorBack2: Reflector = new Reflector(new PlaneGeometry(2, 2), {
   color: new Color(0x7f7f7f),
   textureWidth: window.innerWidth * window.devicePixelRatio,
   textureHeight: window.innerHeight * window.devicePixelRatio,
@@ -199,7 +199,7 @@ mirrorBack2.position.y = 1;
 mirrorBack2.position.z = -2;
 scene.add(mirrorBack2);
 
-const mirrorFront1: Reflector = new Reflector(new PlaneBufferGeometry(2, 2), {
+const mirrorFront1: Reflector = new Reflector(new PlaneGeometry(2, 2), {
   color: new Color(0x7f7f7f),
   //clipBias: 0.003,
   textureWidth: window.innerWidth * window.devicePixelRatio,
@@ -210,7 +210,7 @@ mirrorFront1.position.z = 1;
 mirrorFront1.rotateY(Math.PI);
 scene.add(mirrorFront1);
 
-const mirrorFront2: Reflector = new Reflector(new PlaneBufferGeometry(2, 2), {
+const mirrorFront2: Reflector = new Reflector(new PlaneGeometry(2, 2), {
   color: new Color(0x7f7f7f),
   //clipBias: 0.003,
   textureWidth: window.innerWidth * window.devicePixelRatio,

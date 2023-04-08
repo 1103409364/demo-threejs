@@ -1,4 +1,4 @@
-export class tween {
+export default class tween {
   Tween: typeof Tween;
   update(time?: number): boolean;
   getAll(): Tween[];

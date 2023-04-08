@@ -8,8 +8,9 @@ import {
   Raycaster,
   BoxGeometry,
   MeshBasicMaterial,
-  PlaneBufferGeometry,
+  PlaneGeometry, // PlaneBufferGeometry 已经被 PlaneGeometry 替代，默认使用 BufferGeometry
   Vector3,
+  Vector2,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Stats } from "stats.ts";
@@ -31,7 +32,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 const floor = new Mesh(
-  new PlaneBufferGeometry(20, 20, 10, 10),
+  new PlaneGeometry(20, 20, 10, 10),
   new MeshBasicMaterial({ color: 0xaec6cf, wireframe: true }),
 );
 floor.rotateX(-Math.PI / 2);
@@ -68,7 +69,7 @@ function onDoubleClick(event: MouseEvent) {
     x: (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
     y: -(event.clientY / renderer.domElement.clientHeight) * 2 + 1,
   };
-  raycaster.setFromCamera(mouse, camera);
+  raycaster.setFromCamera(new Vector2(mouse.x, mouse.y), camera);
 
   const intersects = raycaster.intersectObject(floor, false);
 

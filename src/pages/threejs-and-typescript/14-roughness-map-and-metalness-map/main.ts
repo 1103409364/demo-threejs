@@ -158,7 +158,7 @@ function addGui() {
   meshPhysicalMaterialFolder.open();
 
   function updateMaterial() {
-    material.side = Number(material.side);
+    material.side = material.side;
     material.needsUpdate = true;
   }
 

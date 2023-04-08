@@ -15,6 +15,7 @@ import {
   Raycaster,
   Vector3,
   Face,
+  Vector2,
   // CameraHelper,
 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -34,7 +35,7 @@ const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 camera.position.z = 2;
 
 const renderer = new WebGLRenderer();
-renderer.physicallyCorrectLights = true;
+renderer.useLegacyLights = true; // 物理光照  In r150, physicallyCorrectLights was replaced with useLegacyLights https://threejs.org/docs/#api/en/renderers/WebGLRenderer.physicallyCorrectLights
 renderer.shadowMap.enabled = true;
 renderer.outputEncoding = sRGBEncoding;
 
@@ -111,10 +112,7 @@ function onMouseMove(event: MouseEvent) {
     x: (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
     y: -(event.clientY / renderer.domElement.clientHeight) * 2 + 1,
   };
-
-  // console.log(mouse)
-
-  raycaster.setFromCamera(mouse, camera);
+  raycaster.setFromCamera(new Vector2(mouse.x, mouse.y), camera);
 
   const intersects = raycaster.intersectObjects(sceneMeshes, false);
 
@@ -141,7 +139,7 @@ function onDoubleClick(event: MouseEvent) {
     x: (event.clientX / renderer.domElement.clientWidth) * 2 - 1,
     y: -(event.clientY / renderer.domElement.clientHeight) * 2 + 1,
   };
-  raycaster.setFromCamera(mouse, camera);
+  raycaster.setFromCamera(new Vector2(mouse.x, mouse.y), camera);
 
   const intersects = raycaster.intersectObjects(sceneMeshes, false);
 

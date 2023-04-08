@@ -15,6 +15,7 @@ import {
   LineSegments,
   Vector2,
   Vector3,
+  InterleavedBufferAttribute,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Stats } from "stats.ts";
@@ -157,7 +158,8 @@ function onClick() {
         drawingLine = true;
       } else {
         //finish the line
-        const positions = line.geometry.attributes.position.array as Array<number>;
+        const positions = (line.geometry.attributes.position as InterleavedBufferAttribute)
+          .array as Array<number>;
         positions[3] = intersects[0].point.x;
         positions[4] = intersects[0].point.y;
         positions[5] = intersects[0].point.z;
@@ -180,7 +182,8 @@ function onDocumentMouseMove(event: MouseEvent) {
     raycaster.setFromCamera(mouse, camera);
     intersects = raycaster.intersectObjects(pickableObjects, false);
     if (intersects.length > 0) {
-      const positions = line.geometry.attributes.position.array as Array<number>;
+      const positions = (line.geometry.attributes.position as InterleavedBufferAttribute)
+        .array as Array<number>;
       const v0 = new Vector3(positions[0], positions[1], positions[2]);
       const v1 = new Vector3(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z);
       positions[3] = intersects[0].point.x;

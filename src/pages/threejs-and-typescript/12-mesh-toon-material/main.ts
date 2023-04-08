@@ -182,7 +182,7 @@ function addGui() {
   meshToonMaterialFolder.open();
 
   function updateMaterial() {
-    material.side = Number(material.side);
+    material.side = material.side;
     material.gradientMap = eval(data.gradientMap as string);
     material.needsUpdate = true;
   }
