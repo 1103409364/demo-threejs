@@ -29,11 +29,15 @@ function getPages() {
 }
 
 function render(pageGroup: Record<string, PageItem[]>) {
+  let base = import.meta.env.VITE_BASE === "/" ? "" : import.meta.env.VITE_BASE;
+  if (import.meta.env.MODE === "development") {
+    base += "/src/pages";
+  }
   let temp = "<div class= 'page-wrap'>";
   for (const title in pageGroup) {
     temp += `<dl class="group ${title}"><span class="list-title">${title}</span>`;
     pageGroup[title].forEach(
-      (p: PageItem) => (temp += `<dt><a href="/${p.path}">${p.subTitle}</a></dt>`),
+      (p: PageItem) => (temp += `<dt><a href="${base}/${p.path}/index.html">${p.subTitle}</a></dt>`),
     );
     temp += "</dl>";
   }

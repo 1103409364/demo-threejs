@@ -14,7 +14,8 @@ git init
 git add -A
 git commit -m 'deploy'
 # 强制推送到 gh-pages 分支，使用了 HTTP 访问令牌作为身份验证来访问名为 demo-threejs 的 Github 仓库
-# git push -f "https://${access_token}@github.com/1103409364/demo-threejs" main:gh-pages
-git push -f "git@github.com:1103409364/demo-threejs" main:gh-pages
+# git push -f "https://${access_token}@github.com/1103409364/demo-threejs" master:gh-pages
+# 将本地分支 master 的代码强制推送到名为 gh-pages 的远程分支上，并覆盖远程分支上的所有代码。
+git push -f "git@github.com:1103409364/demo-threejs" master:gh-pages
 cd -
 exec /bin/bash
