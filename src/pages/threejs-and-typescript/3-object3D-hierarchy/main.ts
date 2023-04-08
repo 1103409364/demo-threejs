@@ -5,7 +5,7 @@ import {
   WebGLRenderer,
   Mesh,
   AxesHelper,
-  SphereBufferGeometry,
+  SphereGeometry,
   PointLight,
   MeshPhongMaterial,
   Vector3,
@@ -43,17 +43,17 @@ const light2 = new PointLight();
 light2.position.set(-10, 10, 10);
 scene.add(light2);
 
-const object1 = new Mesh(new SphereBufferGeometry(), new MeshPhongMaterial({ color: 0xff0000 })); // 红球
+const object1 = new Mesh(new SphereGeometry(), new MeshPhongMaterial({ color: 0xff0000 })); // 红球
 object1.position.set(4, 0, 0);
 scene.add(object1);
 object1.add(new AxesHelper(5));
 
-const object2 = new Mesh(new SphereBufferGeometry(), new MeshPhongMaterial({ color: 0x00ff00 })); // 绿球
+const object2 = new Mesh(new SphereGeometry(), new MeshPhongMaterial({ color: 0x00ff00 })); // 绿球
 object2.position.set(4, 0, 0);
 object1.add(object2);
 object2.add(new AxesHelper(5));
 
-const object3 = new Mesh(new SphereBufferGeometry(), new MeshPhongMaterial({ color: 0x0000ff })); // 蓝球
+const object3 = new Mesh(new SphereGeometry(), new MeshPhongMaterial({ color: 0x0000ff })); // 蓝球
 object3.position.set(4, 0, 0);
 object2.add(object3);
 object3.add(new AxesHelper(5));
