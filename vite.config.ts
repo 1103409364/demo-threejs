@@ -6,19 +6,20 @@ import { defineConfig } from "vite";
 import mpa from "vite-plugin-mpa";
 import glsl from "vite-plugin-glsl";
 
-const baseMap = {
-  development: "/",
-  production: "/demo-threejs/",
-  test: "/demo-threejs/",
-};
-console.log("===", import.meta);
+// const baseMap = {
+//   development: "/",
+//   production: "/demo-threejs/",
+//   test: "/demo-threejs/",
+// };
+// console.log("===", import.meta);
 // * @see https://vitejs.dev/config/
 export default ({ mode }) => {
-  console.log("mode", mode);
-  // const env = loadEnv(mode, process.cwd()); // 获取.env文件里定义的环境变量
-  const base = baseMap[mode];
-  console.log("base", base);
+  const env = loadEnv(mode, process.cwd()); // 获取.env文件里定义的环境变量
+  console.log("env", env.VITE_BASE);
 
+  // const base = baseMap[mode];
+  // console.log("base", base);
+  const base = env.VITE_BASE;
   return defineConfig({
     base,
     plugins: [
