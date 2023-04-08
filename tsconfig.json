@@ -19,7 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-       "*tween.module.min": ["src/typings/tween.js"]
+      "*tween.module": ["src/typings/tween.js"]
     }
   },
   "include": ["src", "src/pages/*/main.ts"]
