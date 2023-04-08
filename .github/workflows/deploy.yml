@@ -17,12 +17,12 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
+  push: # 在 push 的时候触发
     branches:
-      - master # 您的主要分支名称
+      - main # 您的主要分支名称
   pull_request:
     branches:
-      - master # 您的主要分支名称
+      - main # 您的主要分支名称
 
 jobs:
   deploy:
