@@ -40,5 +40,10 @@
     "vite": "^4.2.1",
     "vite-plugin-glsl": "^1.1.2",
     "vite-plugin-mpa": "^1.1.4"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "vite-plugin-mpa@1.1.4": "patches/vite-plugin-mpa@1.1.4.patch"
+    }
   }
 }

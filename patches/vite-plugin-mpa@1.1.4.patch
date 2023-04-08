@@ -1,0 +1,12 @@
+diff --git a/dist/index.js b/dist/index.js
+index cb89ceac2c07b545947e28a46f7388e7a7bed5ce..288b3dea3978f25fd3eb9179ecbd827d1824956f 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -5311,5 +5311,5 @@ function mpa(userOptions = {}) {
+   };
+ }
+ 
+-
+-exports.default = mpa;
++// exports.default = mpa;
++module.exports = mpa
