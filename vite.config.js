@@ -7,7 +7,7 @@ import glsl from "vite-plugin-glsl";
 // * @see https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    mpa({ open: "/index.html" }),
+    mpa({ open: "/src/pages/index.html" }),
     glsl(),
     // legacy({
     //   targets: ["ie >= 11"],
