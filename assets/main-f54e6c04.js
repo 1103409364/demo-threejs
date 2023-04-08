@@ -1,0 +1,12 @@
+/* empty css              */import{S as M,A as m,P as y,W as z,h as W,a as P,b as h,r as u,V as x}from"./three.module-d5fa3ebf.js";import{O as G}from"./OrbitControls-5742bab2.js";import{S as L}from"./Stats-ef6ecf20.js";import{G as R}from"./lil-gui.esm-fc0b5e43.js";const a=document.querySelector("#app"),r=new M;r.add(new m(5));const o=new y(75,window.innerWidth/window.innerHeight,.1,1e3);o.position.x=4;o.position.y=4;o.position.z=4;const c=new z;c.setSize(window.innerWidth,window.innerHeight);a==null||a.appendChild(c.domElement);const F=new G(o,c.domElement);F.target.set(8,0,0);const X=new W;X.position.set(10,10,10);r.add(X);const j=new W;j.position.set(-10,10,10);r.add(j);const e=new P(new h,new u({color:16711680}));e.position.set(4,0,0);r.add(e);e.add(new m(5));const n=new P(new h,new u({color:65280}));n.position.set(4,0,0);e.add(n);n.add(new m(5));const i=new P(new h,new u({color:255}));i.position.set(4,0,0);n.add(i);i.add(new m(5));window.addEventListener("resize",C,!1);const b=H(),g=document.getElementById("debug1");I();S();function S(){requestAnimationFrame(S),F.update(),f();const t=new x;e.getWorldPosition(t);const d=new x;n.getWorldPosition(d);const s=new x;i.getWorldPosition(s),g&&(g.innerText=`Red
+Local Pos X : `+e.position.x.toFixed(2)+`
+World Pos X : `+t.x.toFixed(2)+`
+
+Green
+Local Pos X : `+n.position.x.toFixed(2)+`
+World Pos X : `+d.x.toFixed(2)+`
+
+Blue
+Local Pos X : `+i.position.x.toFixed(2)+`
+World Pos X : `+s.x.toFixed(2)+`
+`)}function f(){b.begin(),c.render(r,o),b.end()}function C(){o.aspect=window.innerWidth/window.innerHeight,o.updateProjectionMatrix(),c.setSize(window.innerWidth,window.innerHeight),f()}function H(){const t=new L;return a==null||a.appendChild(t.dom),t}function I(){const t=document.querySelector("#gui");if(!t)return;const d=new R({container:t}),s=d.addFolder("Object1");s.add(e.position,"x",0,10,.01).name("X Position"),s.add(e.rotation,"x",0,Math.PI*2,.01).name("X Rotation"),s.add(e.scale,"x",0,2,.01).name("X Scale"),s.open();const l=d.addFolder("Object2");l.add(n.position,"x",0,10,.01).name("X Position"),l.add(n.rotation,"x",0,Math.PI*2,.01).name("X Rotation"),l.add(n.scale,"x",0,2,.01).name("X Scale"),l.open();const w=d.addFolder("Object3");w.add(i.position,"x",0,10,.01).name("X Position"),w.add(i.rotation,"x",0,Math.PI*2,.01).name("X Rotation"),w.add(i.scale,"x",0,2,.01).name("X Scale"),w.open();const p=d.addFolder("Camera");p.add(o.position,"x",-10,10,.01),p.add(o.position,"y",-10,10,.01),p.add(o.position,"z",-10,10,.01)}
