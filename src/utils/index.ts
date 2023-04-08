@@ -10,5 +10,11 @@ interface Module {
 export const getImg = (name: string, format = "png") => {
   const path = `/src/assets/img/${name}.${format}`;
   const modules = import.meta.glob<Module>("/src/assets/img/*", { eager: true });
-  return modules[path].default;
+  console.log(modules);
+  const img = modules[path]?.default;
+  if (!img) {
+    throw new Error(`Image not found: ${name}`);
+  }
+
+  return img;
 };

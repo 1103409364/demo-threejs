@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import path from "path";
 import { loadEnv } from "vite";
 
@@ -21,6 +23,11 @@ export default ({ mode }) => {
       //   additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
       // }),
     ],
+    test: {
+      globals: true,
+      environment: "jsdom",
+      // alias: 合并 vite.config.ts 的 resolve.alias
+    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),

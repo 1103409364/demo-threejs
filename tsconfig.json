@@ -22,5 +22,5 @@
       "*tween.module": ["src/typings/tween.js"]
     }
   },
-  "include": ["src", "src/pages/*/main.ts"]
+  "include": ["src", "src/pages/*/main.ts", "test/*.spec.ts"]
 }
