@@ -169,8 +169,8 @@ function addGui() {
   meshBasicMaterialFolder.open();
 
   function updateMaterial() {
-    material.side = Number(material.side);
-    material.combine = Number(material.combine);
+    material.side = material.side;
+    material.combine = material.combine;
     material.needsUpdate = true;
   }
 

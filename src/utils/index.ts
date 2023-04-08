@@ -1,3 +1,6 @@
+interface Module {
+  default: string;
+}
 /**
  * 获取img目录下图片的动态路径
  * @param name 图片名称
@@ -6,6 +9,6 @@
  */
 export const getImg = (name: string, format = "png") => {
   const path = `/src/assets/img/${name}.${format}`;
-  const modules = import.meta.globEager("/src/assets/img/*");
+  const modules = import.meta.glob<Module>("/src/assets/img/*", { eager: true });
   return modules[path].default;
 };

@@ -1,4 +1,4 @@
-export default class tween {
+class tween {
   Tween: typeof Tween;
   update(time?: number): boolean;
   getAll(): Tween[];
@@ -85,3 +85,6 @@ declare class Tween {
 }
 
 declare const TWEEN: tween;
+declare module "three/examples/jsm/libs/tween.module" {
+  export default TWEEN;
+}

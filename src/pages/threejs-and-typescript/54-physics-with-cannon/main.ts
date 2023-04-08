@@ -15,8 +15,8 @@ import {
   TorusKnotGeometry,
   BufferGeometry,
   Clock,
-  BufferAttribute,
-  GLBufferAttribute,
+  // BufferAttribute,
+  // GLBufferAttribute,
   InterleavedBufferAttribute,
 } from "three";
 import * as CANNON from "cannon-es";
@@ -154,7 +154,7 @@ torusKnotBody.position.z = torusKnotMesh.position.z;
 world.addBody(torusKnotBody);
 
 function CreateTrimesh(geometry: BufferGeometry) {
-  const vertices = geometry.attributes.position.array;
+  const vertices = (geometry.attributes.position as InterleavedBufferAttribute).array;
   const indices = Object.keys(vertices).map(Number);
   return new CANNON.Trimesh(vertices as [], indices);
 }

@@ -14,17 +14,19 @@ export default class CannonUtils {
   public static CreateTrimesh(geometry: THREE.BufferGeometry): CANNON.Trimesh {
     let vertices;
     if (geometry.index === null) {
-      vertices = geometry.attributes.position.array as number[];
+      vertices = (geometry.attributes.position as THREE.InterleavedBufferAttribute).array;
     } else {
-      vertices = geometry.clone().toNonIndexed().attributes.position.array as number[];
+      vertices = (
+        geometry.clone().toNonIndexed().attributes.position as THREE.InterleavedBufferAttribute
+      ).array;
     }
     const indices = Object.keys(vertices).map(Number);
-    return new CANNON.Trimesh(vertices, indices);
+    return new CANNON.Trimesh(vertices as number[], indices);
   }
 
   public static CreateConvexPolyhedron(geometry: THREE.BufferGeometry): CANNON.ConvexPolyhedron {
-    const position = geometry.attributes.position;
-    const normal = geometry.attributes.normal;
+    const position = geometry.attributes.position as THREE.InterleavedBufferAttribute;
+    const normal = geometry.attributes.normal as THREE.InterleavedBufferAttribute;
     const vertices: THREE.Vector3[] = [];
     for (let i = 0; i < position.count; i++) {
       vertices.push(new THREE.Vector3().fromBufferAttribute(position, i));

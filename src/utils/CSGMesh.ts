@@ -93,10 +93,10 @@ class CSG {
 
   static fromGeometry = function (geom: THREE.BufferGeometry, objectIndex?: object) {
     let polys = [];
-    const posattr = geom.attributes.position;
-    const normalattr = geom.attributes.normal;
-    const uvattr = geom.attributes.uv;
-    const colorattr = geom.attributes.color;
+    const posattr = geom.attributes.position as THREE.InterleavedBufferAttribute;
+    const normalattr = geom.attributes.normal as THREE.InterleavedBufferAttribute;
+    const uvattr = geom.attributes.uv as THREE.InterleavedBufferAttribute;
+    const colorattr = geom.attributes.color as THREE.InterleavedBufferAttribute;
     let index: number[];
     if (geom.index) {
       index = geom.index.array as number[];

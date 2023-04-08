@@ -7,14 +7,14 @@ import {
   Mesh,
   Clock,
   Object3D,
-  BoxBufferGeometry,
+  BoxGeometry,
   BufferGeometry,
   Color,
   DirectionalLight,
   DoubleSide,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   PMREMGenerator,
   SphereGeometry,
   TextureLoader,
@@ -114,7 +114,7 @@ const meshes: { [id: string]: Mesh } = {};
 const bodies: { [id: string]: CANNON.Body } = {};
 let meshId = 0;
 
-const groundMirror = new Reflector(new PlaneBufferGeometry(1024, 1024), {
+const groundMirror = new Reflector(new PlaneGeometry(1024, 1024), {
   color: new Color(0x222222),
   clipBias: 0.003,
   textureWidth: window.innerWidth * window.devicePixelRatio,
@@ -138,7 +138,7 @@ for (let i = 0; i < 20; i++) {
     y: Math.random() * 10 + 5,
     z: Math.random() * 4 + 2,
   };
-  const geo: BoxBufferGeometry = new BoxBufferGeometry(size.x, size.y, size.z);
+  const geo: BoxGeometry = new BoxGeometry(size.x, size.y, size.z);
   const cube = new Mesh(geo, material);
 
   cube.position.x = Math.random() * 50 - 25;
@@ -272,7 +272,7 @@ function splitObject(userData: { id: any; splitCount: number }, contact: CANNON.
 }
 
 function gemoetryToShape(geometry: BufferGeometry) {
-  const position = geometry.attributes.position.array;
+  const position = (geometry.attributes.position as THREE.InterleavedBufferAttribute).array;
   const points: Vector3[] = [];
   for (let i = 0; i < position.length; i += 3) {
     points.push(new Vector3(position[i], position[i + 1], position[i + 2]));

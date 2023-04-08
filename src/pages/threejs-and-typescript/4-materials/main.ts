@@ -126,7 +126,7 @@ function addGui() {
   materialFolder.add(material, "side", options.side).onChange(() => updateMaterial()); // 材质的可见面 backside进入物体内部
   materialFolder.open();
   function updateMaterial() {
-    material.side = Number(material.side);
+    material.side = material.side;
     material.needsUpdate = true;
   }
 

@@ -67,7 +67,7 @@ camera.position.set(2, 2, 2);
 
 const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-// renderer.physicallyCorrectLights = true;
+// renderer.useLegacyLights = true; // 自然光 physicallyCorrectLights 已经替换为 useLegacyLights
 renderer.toneMapping = ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.8;
 renderer.outputEncoding = sRGBEncoding;

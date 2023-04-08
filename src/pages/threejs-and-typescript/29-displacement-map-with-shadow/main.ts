@@ -51,7 +51,7 @@ camera.position.set(0, 1, 1);
 const renderer = new WebGLRenderer();
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFShadowMap;
-renderer.physicallyCorrectLights = true;
+renderer.useLegacyLights = true; // 自然光 physicallyCorrectLights 已经替换为 useLegacyLights
 renderer.setSize(window.innerWidth, window.innerHeight);
 app?.appendChild(renderer.domElement);
 

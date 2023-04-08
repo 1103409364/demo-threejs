@@ -11,7 +11,7 @@ import {
   Mesh,
   MeshBasicMaterial,
   MeshPhongMaterial,
-  PlaneBufferGeometry,
+  PlaneGeometry,
 } from "three";
 import { Stats } from "stats.ts";
 import { GUI } from "lil-gui"; // dat.GUI 的替代方案
@@ -53,7 +53,7 @@ mesh2.userData.obb = new OBB();
 scene.add(mesh2);
 
 const floor = new Mesh(
-  new PlaneBufferGeometry(20, 20, 10, 10),
+  new PlaneGeometry(20, 20, 10, 10),
   new MeshBasicMaterial({ color: 0xaec6cf, wireframe: true }),
 );
 floor.rotateX(-Math.PI / 2);
