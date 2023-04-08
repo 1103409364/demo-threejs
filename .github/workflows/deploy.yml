@@ -1,0 +1,74 @@
+# 添加 Personal Access Token 参考 https://juejin.cn/post/7129540012009816100
+# 1 账户全局 Settings 页面中（https://github.com/settings/tokens）创建 Personal Access Token，并将其存储为一个 secret。
+# 2 在仓库的 Settings 页面中，选择 Secrets，并创建一个名为 `GITHUB_TOKEN` 的新 secret，将上一步创建的 token 值粘贴到其中。这个 token 将用于在 GitHub Pages 上发布构建的环境变量。
+
+# - `name`: workflow 名称
+# - `on`: 触发 workflow 执行的事件，这里配置了 push 和 pull_request 事件
+# - `jobs`: workflow 中的 job 集合，这里只有一个 job，名为 deploy
+# - `runs-on`: job 执行的操作系统环境，这里配置为 ubuntu-latest
+# - `steps`: job 中的步骤集合，这里有四个步骤：
+
+#   - `Checkout`: 使用 actions/checkout action 将代码检出到工作目录中
+#   - `Set up Node.js`: 使用 actions/setup-node action 设置 Node.js 运行环境
+#   - `Install Dependencies`: 安装项目依赖并构建项目
+#   - `Deploy`: 使用 JamesIves/github-pages-deploy-action action 部署静态网站到 GitHub Pages。
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master # 您的主要分支名称
+  pull_request:
+    branches:
+      - master # 您的主要分支名称
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: |
+          pnpm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./dist # 打包后文件的输出目录
+          github_token: ${{ secrets.GITHUB_TOKEN }} # 仓库token秘钥!!!
+          user_name: ${{ secrets.MY_USER_NAME }} # 不用改
+          user_email: ${{ secrets.MY_USER_EMAIL }} # 不用改
+          # commit_message: 'Deploy' # 部署时的 git 提交信息，自由填写
