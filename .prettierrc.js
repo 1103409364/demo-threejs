@@ -1,7 +1,0 @@
-module.exports = {
-  htmlWhitespaceSensitivity: "ignore",
-  endOfLine: "auto",
-  printWidth: 105,
-  singleQuote: false,
-  trailingComma: "all",
-};
