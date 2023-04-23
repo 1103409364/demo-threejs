@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // 使用 Edge 浏览器调试
+      // "type": "msedge",
+      // 使用 Chrome 浏览器调试
+      "type": "chrome",
+
+      "request": "launch",
+      "name": "three",
+
+      // 项目的访问地址（需要改成你项目开发环境对应的地址和端口号）
+      "url": "http://127.0.0.1:3030/src/pages/index.html",
+
+      "webRoot": "${workspaceFolder}",
+      "pathMapping": {
+        "/_karma_webpack_": "${workspaceFolder}"
+      },
+      "sourceMapPathOverrides": {
+        "webpack:/*": "${webRoot}/*",
+        "/./*": "${webRoot}/*",
+        "/src/*": "${webRoot}/*",
+        "/*": "*",
+        "/./~/*": "${webRoot}/node_modules/*"
+      },
+
+      // 设置进入 debug 环境之前需要执行的任务。
+      // 此名称对应项目中 .vscode 目录下 tasks.json 文件中的 label 属性）
+      "preLaunchTask": "npm: dev"
+    }
+  ]
+}

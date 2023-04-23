@@ -14,6 +14,7 @@ export default ({ mode }) => {
   const base = env.VITE_BASE;
   const open = (base === "/" ? "" : base) + "/src/pages/index.html";
   return defineConfig({
+    // build: { sourcemap: true },
     base,
     plugins: [
       mpa({ open }),
